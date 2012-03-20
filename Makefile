@@ -2,7 +2,7 @@
 SHELL=/bin/bash
 
 vpath %.cpp src/
-vpath %.h include/
+vpath %.hpp include/
 
 CINCLUDEDIRS = -Iinclude
 

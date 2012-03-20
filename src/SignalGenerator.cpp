@@ -1,24 +1,27 @@
-/**********************************************
- * Class for generating different signals;
- *  also allows for one to add random noise.
- *  Written : S.V. Paulauskas - 15 March 2012
+/** \file SignalGenerator.cpp
+ * \brief Signal Generator
+ * This is a class to generate different types of signals.  
+ * You can also add noise to the signal. 
+ * Written : S.V. Paulauskas - 15 March 2012
  */
 #include <fstream>
 #include <iostream>
 
 #include <cmath>
 
-#include "SignalGenerator.h"
+#include "SignalGenerator.hpp"
 
 using namespace std;
 
 //********** GenerateSignal **********
 void SignalGenerator::GenerateSignal(void) {
+   if (type_ == "cosine")
+      mu_ += M_PI*0.5;
+   
    for(double i = 0; i < length_; i += res_) {
-      if(type_ == "sin") {
+      if(type_ == "sine") {
 	 signal_.push_back(SineWave(i));
-      } else if(type_ == "cos") { 
-	 mu_ += M_PI;
+      } else if(type_ == "cosine") { 
 	 signal_.push_back(SineWave(i));
       } else if (type_ == "gaussian") {
 	 signal_.push_back(Gaussian(i));
@@ -35,7 +38,7 @@ void SignalGenerator::GenerateSignal(void) {
 
    if(hasNoise_) 
       for(unsigned int i = 0; i < signal_.size(); i++) 
-	 signal_[i] += amp_*Noise();
+	 signal_[i] += noiseAmp_*Noise();
 }
 
 //********** CompositeFunction **********
@@ -85,9 +88,9 @@ double SignalGenerator::Sign(const double &t) {
 }
 //********** SineWave **********
 double SignalGenerator::SineWave(const double &t) {
-   return( sin(period_*t + mu_) );
+   return( amp_ * sin(period_*t + mu_) );
 }
 //********** SquareWave **********
 double SignalGenerator::SquareWave(const double &t) {
-   return (amp_ * Sign(SineWave(t)) );
+   return ( amp_ * Sign(SineWave(t)) );
 }
