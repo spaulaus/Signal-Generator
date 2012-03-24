@@ -1,0 +1,15 @@
+/** \example pictures.dox
+ * \brief Example pictures \n
+ *
+ * Red function - Signal without noise \n
+ * Green Function - Signal with noise
+ *
+ * \image latex cosine.eps "Cosine Function" width=3in 
+ * \image latex gaussian.eps "Gaussian Function" width=3in 
+ * \image latex sawtooth.eps "Sawtooth Function" width=3in 
+ * \image latex sine.eps "Sine Function" width=3in 
+ * \image latex square.eps "Square Function" width=3in 
+ * \image latex triangle.eps "Triangle Function" width=3in 
+ * \image latex triangle-sine.eps "Triangle+Sine Function" width=3in 
+ */
+
