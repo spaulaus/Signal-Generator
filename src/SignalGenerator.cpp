@@ -47,14 +47,17 @@ void SignalGenerator::CustomFunction(void) {
 	   << endl << "This is a fatal error. Exiting." << endl;
       exit(2);
    }else {
-      ifstream readData("fileName_.c_str()");
+      ifstream readData(fileName_.c_str());
       if(readData.is_open()) {
 	 while(readData.good()) {
 	    readData >> junk0 >> junk1 >> junk2;
-	    signal_.push_back(junk0);
+	    signalA_.push_back(junk0);
 	    signal_.push_back(junk1);
 	 }
 	 readData.close();
+      } else {
+	 cout << "Unable to open the requested file. Exiting..." << endl;
+	 exit(2);
       }
    }
 }
