@@ -26,8 +26,8 @@ SIGGENO = SignalGenerator.o
 
 #DefineSharedObject
 SO_NAME = $(subst .o,.so,lib$(SIGGENO))
-SO_NAME_W_DIR = $(addprefix $(OBJDIR)/,$(SO_NAME))
-SO_NAME_FULL=$(addsuffix .$(VERSION), $(SO_NAME_W_DIR))
+SO_NAME_W_VERSION = $(addsuffix .$(VERSION),$(SO_NAME))
+SO_NAME_FULL=$(addprefix $(OBJDIR)/,$(SO_NAME_W_VERSION))
 
 #Define the name of the header for the SO
 HEADER_NAME = $(subst .o,.hpp,$(SIGGENO))
@@ -60,5 +60,5 @@ clean:
 so: $(HEADER_NAME)
 	g++ -shared $(OBJDIR)/$(SIGGENO)  -o $(SO_NAME_FULL)
 	cp $(SO_NAME_FULL) $(SO_INSTALL_PATH)
-	ln -sf $(SO_INSTALL_PATH)/$(SO_NAME_FULL) $(SO_INSTALL_PATH)/$(SO_NAME)
+	ln -sf $(SO_INSTALL_PATH)/$(SO_NAME_W_VERSION) $(SO_INSTALL_PATH)/$(SO_NAME)
 	cp $^ $(HEADER_INSTALL_PATH)
