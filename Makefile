@@ -6,8 +6,8 @@ vpath %.hpp include/
 vpath %.o obj/
 
 #Set some paths to install the shared objects to
-SO_INSTALL_PATH = /home/vincent/programs/libFiles
-HEADER_INSTALL_PATH = /home/vincent/programs/headerFiles
+SO_INSTALL_PATH = /home/vincent/programs/lib
+HEADER_INSTALL_PATH = /home/vincent/programs/inc
 
 #Set some of the compile options
 CXX = g++
@@ -55,7 +55,7 @@ $(PROGRAM): $(OBJS_W_DIR)
 .PHONY: clean so
 clean: 
 	@echo "Cleaning..."
-	@rm -f $(OBJDIR)/* $(PROGRAM) *~ src/*~ include/*~
+	@rm -f $(OBJDIR)/*.o $(PROGRAM) *~ src/*~ include/*~
 
 so: $(HEADER_NAME)
 	g++ -shared $(OBJDIR)/$(SIGGENO)  -o $(SO_NAME_FULL)

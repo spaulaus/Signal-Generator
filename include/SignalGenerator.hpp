@@ -14,6 +14,7 @@
 #include <vector>
 
 #include <cstdlib>
+#include <cmath>
 
 #include "time.h"
 
@@ -23,6 +24,43 @@ public:
     SignalGenerator() {srand(time(NULL));};
     /*! Default Destructor */
     ~SignalGenerator() {};
+
+    /*! Get the amplitude of the generated signal */
+    double GetAmplitude(void) {return(amp_);};  
+   
+    /*! Get the decay constant for an exponential decay. (not implemented) */
+    double GetDecayConstant(void) {return(decay_);}; 
+    
+    /*! Get the delay for the signal */
+    double GetDelay(void) {return(mu_);}; 
+    
+    /*! Get the file name to read the custom function. */
+    /*! The file should contain a series of xy pairs */
+    std::string GetFileName(void) {return(fileName_);};
+    
+    /*! Get the flattop for the trapezoidal signal (not implemented)   */
+    double GetFlattop(void) {return(flattop_);};
+
+    /*! Get to true to give the signal some white noise   */
+    double GetNoise(void) {return(hasNoise_);} 
+    
+    /*! Get the amplitude of the noise   */
+    double GetNoiseAmplitude(void) {return(noiseAmp_);}; 
+    
+    /*! Get the periodicity of the signal (if periodic).   */
+    double GetPeriod(void) {return(period_);}; 
+    
+    /*! Get the risetime for a trapezoidal signal (not implemented)   */
+    double GetRisetime(void) {return(risetime_);};
+    
+    /*! Get the sigma for the gaussian signal   */
+    double GetSigma(void) {return(sigma_);}; 
+    
+    /*! Get the length of the generated signal   */
+    unsigned int GetSignalLength(void) {return(length_);} 
+    
+    /*! Get the resolution for the generated signal   */
+    double GetSignalResolution(void) {return(res_);}
     
     /*! Returns a single value from the function, can be used to generate */
     /*! your own resolutions and vectors if wanted */
@@ -34,13 +72,12 @@ public:
     /*! Returns the x values of a custom function. */  
     std::vector<double>* GetSignalX() {return &signalA_;};
     
-    
     /*! Generate a signal */
     void GenerateSignal(void); 
     
     /*! Set the amplitude of the generated signal */
     void SetAmplitude(const double &amplitude) {amp_ = amplitude;};  
-    
+   
     /*! Set the decay constant for an exponential decay. (not implemented) */
     void SetDecayConstant(const double &decay) {decay_ = decay;}; 
     
@@ -53,7 +90,10 @@ public:
     
     /*! Set the flattop for the trapezoidal signal (not implemented)   */
     void SetFlattop(const double &flattop) {flattop_ = flattop;};
-    
+
+    /*! Set the sigma using FWHM for a gaussian signal */
+    void SetFwhm(const double &fwhm) {SetSigma(fwhm/(2*sqrt(2*log(2))));};
+
     /*! Set to true to give the signal some white noise   */
     void SetNoise(const bool &noise) {hasNoise_ = noise;} 
     

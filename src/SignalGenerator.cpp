@@ -8,8 +8,6 @@
 #include <iostream>
 #include <limits>
 
-#include <cmath>
-
 #include "SignalGenerator.hpp"
 
 using namespace std;
