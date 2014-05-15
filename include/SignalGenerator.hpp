@@ -76,62 +76,67 @@ public:
     void GenerateSignal(void); 
     
     /*! Set the amplitude of the generated signal */
-    void SetAmplitude(const double &amplitude) {amp_ = amplitude;};  
+    void SetAmplitude(const double &a) {amp_ = a;};  
    
+    /*! Set the baseline value for the generated signal */
+    void SetBaseline(const double &a) {baseline_ = a;};
+
     /*! Set the decay constant for an exponential decay. (not implemented) */
-    void SetDecayConstant(const double &decay) {decay_ = decay;}; 
+    void SetDecayConstant(const double &a) {decay_ = a;}; 
     
     /*! Set the delay for the signal */
-    void SetDelay(const double &delay) {mu_ = delay;}; 
+    void SetDelay(const double &a) {mu_ = a;}; 
     
     /*! Set the file name to read the custom function. */
     /*! The file should contain a series of xy pairs */
-    void SetFileName(const std::string &fileName) {fileName_ = fileName;};
+    void SetFileName(const std::string &a) {fileName_ = a;};
     
     /*! Set the flattop for the trapezoidal signal (not implemented)   */
-    void SetFlattop(const double &flattop) {flattop_ = flattop;};
+    void SetFlattop(const double &a) {flattop_ = a;};
 
     /*! Set the sigma using FWHM for a gaussian signal */
     void SetFwhm(const double &fwhm) {SetSigma(fwhm/(2*sqrt(2*log(2))));};
 
     /*! Set to true to give the signal some white noise   */
-    void SetNoise(const bool &noise) {hasNoise_ = noise;} 
+    void SetNoise(const bool &a) {hasNoise_ = a;} 
     
     /*! Set the amplitude of the noise   */
-    void SetNoiseAmplitude(const double &amplitude) {noiseAmp_ = amplitude;}; 
+    void SetNoiseAmplitude(const double &a) {noiseAmp_ = a;}; 
     
     /*! Set the periodicity of the signal (if periodic).   */
-    void SetPeriod(const double &period) {period_ = period;}; 
+    void SetPeriod(const double &a) {period_ = a;}; 
     
     /*! Set the risetime for a trapezoidal signal (not implemented)   */
-    void SetRisetime(const double &risetime) {risetime_ = risetime;};
+    void SetRisetime(const double &a) {risetime_ = a;};
     
     /*! Set the sigma for the gaussian signal   */
-    void SetSigma(const double &sigma) {sigma_ = sigma;}; 
+    void SetSigma(const double &a) {sigma_ = a;}; 
     
     /*! Set the length of the generated signal   */
-    void SetSignalLength(const unsigned int &sigLength) {length_ = sigLength;} 
+    void SetSignalLength(const unsigned int &a) {length_ = a;} 
     
     /*! Set the resolution for the generated signal   */
-    void SetSignalResolution(const double &sigRes) {res_ = sigRes;}
+    void SetSignalResolution(const double &a) {res_ = a;}
     
     /*! Set the type of signal to generate */
     /*! Available types: sine, cosine, gaussian, sawtooth, square, triangle, 
      *  custom, composite. */
-    void SetSignalType (const std::string &sigType) {type_ = sigType;}
+    void SetSignalType (const std::string &a) {type_ = a;}
     
     /*! Set the types of signals to generate for a composite signal   */
-    void SetSignalType (const std::string &sigTypeA, const std::string &sigTypeB)
-    {type_ = sigTypeA; typeA_ = sigTypeB;};
+    void SetSignalType (const std::string &a, const std::string &b)
+    {type_ = a; typeA_ = b;};
 private:
     bool hasNoise_;
-    double amp_, decay_, mu_, sigma_, period_, risetime_, flattop_, res_;
+    double amp_, baseline_, decay_, mu_, sigma_, period_, 
+        risetime_, flattop_, res_;
     double noiseAmp_;
     std::string type_, typeA_, fileName_;
     std::vector<double> signal_, signalA_;
     unsigned int length_;
     
     double Gaussian(const double &t);
+    double PixieFunc(const double &t);
     double Noise(void);
     double NonStationarySine(const double &t);
     double SawtoothWave(const double &t);

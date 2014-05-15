@@ -11,7 +11,7 @@ HEADER_INSTALL_PATH = /home/vincent/programs/inc
 
 #Set some of the compile options
 CXX = g++
-CXXFLAGS = -fPIC -g -Wall $(CINCLUDEDIRS)
+CXXFLAGS = -fPIC -g -Wall $(CINCLUDEDIRS) -std=c++11
 LDLIBS = -ldl -lpthread
 CINCLUDEDIRS = -Iinclude
 c++SrcSuf = cpp

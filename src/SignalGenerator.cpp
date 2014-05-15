@@ -42,7 +42,7 @@ void SignalGenerator::CompositeFunction(void) {
 void SignalGenerator::CustomFunction(void) {
     double junk0, junk1, junk2;
     if(fileName_ == "") {
-        cout << endl << "A file name must be specified to use a custom function."
+        cerr << endl << "A file name must be specified to use a custom function."
              << endl << "This is a fatal error. Exiting." << endl;
         exit(2);
     }else {
@@ -55,7 +55,7 @@ void SignalGenerator::CustomFunction(void) {
             }
             readData.close();
         } else {
-            cout << "Unable to open the requested file. Exiting..." << endl;
+            cerr << "Unable to open the requested file. Exiting..." << endl;
             exit(2);
         }
     }
@@ -115,6 +115,16 @@ double SignalGenerator::Gaussian(const double &t) {
     double coeff = amp_/(sigma_*sqrt(2*M_PI));
     double exponent = -pow((t-mu_)/sigma_,2)*0.5;
     return( coeff * exp(exponent) );
+}
+
+
+//********** PixieResponseFunction **********
+double SignalGenerator::PixieFunc(const double &t) {
+    if(t < mu_)
+        return(baseline_);
+    else
+        return(baseline_+amp_*(1-exp(-(t-mu_)*(t-mu_)/sigma_))*
+               exp(-(t-mu_)/decay_));
 }
 
 
