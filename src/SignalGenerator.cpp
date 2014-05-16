@@ -90,23 +90,24 @@ void SignalGenerator::FillVector(vector<double> &vec,
 
 //********** GetSignalVal **********
 double SignalGenerator::GetSignalValue(const double &x) {
-    if(type_ == "sine") {
+    if(type_ == "sine")
         return(SineWave(x));
-    }else if(type_ == "cosine") { 
+    else if(type_ == "cosine")
         return(SineWave(x+M_PI*0.5));
-    }else if (type_ == "gaussian") {
+    else if (type_ == "gaussian") 
         return(Gaussian(x));
-    }else if (type_ == "nonstationarysine") {
+    else if (type_ == "nonstationarysine") 
         return(NonStationarySine(x));
-    }else if (type_ == "square") {
+    else if (type_ == "square") 
         return(SquareWave(x));
-    }else if (type_ == "sawtooth") {
+    else if (type_ == "sawtooth") 
         return(SawtoothWave(x));
-    }else if (type_ == "triangle") {
+    else if (type_ == "triangle") 
         return(2.*fabs(SawtoothWave(x)));
-    }else {
+    else if (type_ == "pixie")
+        return(PixieFunc(x));
+    else 
         return(numeric_limits<double>::quiet_NaN());
-    }    
 }
 
 
