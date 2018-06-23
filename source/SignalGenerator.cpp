@@ -10,6 +10,12 @@
 #include <iostream>
 #include <limits>
 
+SignalGenerator::SignalGenerator() {
+    srand(time(NULL));
+}
+
+SignalGenerator::~SignalGenerator() = default;
+
 void SignalGenerator::GenerateSignal() {
     if(type_ == "custom") {
         CustomFunction();
