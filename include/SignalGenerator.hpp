@@ -4,6 +4,8 @@
 /// @date March 15, 2012
 /// @copyright Copyright (c) 2012 - 2018 S. V. Paulauskas.
 /// @copyright All rights reserved. Released under the Creative Commons Attribution-ShareAlike 4.0 International License
+#ifndef SIGNAL_GENERATOR
+#define SIGNAL_GENERATOR
 #include <string>
 #include <vector>
 
@@ -144,3 +146,5 @@ private:
     void FillVector(std::vector<double> &vec, 
                     const std::string &type);
 }; //class SignalGenerator
+
+#endif
