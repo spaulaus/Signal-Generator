@@ -9,11 +9,6 @@
 #include <string>
 #include <vector>
 
-#include <cstdlib>
-#include <cmath>
-
-#include "time.h"
-
 class SignalGenerator {
 public:
     /// Default Constructor 
@@ -22,109 +17,109 @@ public:
     ~SignalGenerator();
 
     /// Get the amplitude of the generated signal 
-    double GetAmplitude() {return(amp_);};
+    double GetAmplitude();
    
     /// Get the decay constant for an exponential decay. (not implemented) 
-    double GetDecayConstant() {return(decay_);};
+    double GetDecayConstant();
     
     /// Get the delay for the signal 
-    double GetDelay() {return(mu_);};
+    double GetDelay();
     
     /// Get the file name to read the custom function. 
     /// The file should contain a series of xy pairs 
-    std::string GetFileName() {return(fileName_);};
+    std::string GetFileName();
     
     /// Get the flattop for the trapezoidal signal (not implemented)
-    double GetFlattop() {return(flattop_);};
+    double GetFlattop();
 
     /// Get to true to give the signal some white noise
-    double GetNoise() {return(hasNoise_);} 
+    double GetNoise();
     
     /// Get the amplitude of the noise
-    double GetNoiseAmplitude() {return(noiseAmp_);};
+    double GetNoiseAmplitude();
     
     /// Get the periodicity of the signal (if periodic).
-    double GetPeriod() {return(period_);}; 
+    double GetPeriod();
     
     /// Get the risetime for a trapezoidal signal (not implemented)
-    double GetRisetime() {return(risetime_);};
+    double GetRisetime();
     
     /// Get the sigma for the gaussian signal
-    double GetSigma() {return(sigma_);};
+    double GetSigma();
     
     /// Get the length of the generated signal
-    unsigned int GetSignalLength() {return(length_);}
+    unsigned int GetSignalLength();
     
     /// Get the resolution for the generated signal
-    double GetSignalResolution() {return(res_);}
+    double GetSignalResolution();
     
     /// Returns a single value from the function, can be used to generate 
     /// your own resolutions and vectors if wanted 
     double GetSignalValue(const double &x);
-    /// Returns the vectors of the generated signal 
+
+    /// Returns the vectors of the generated signal
     /// If a custom function is specified this will return the y values 
     /// Remember: The size of the vector will be length * resolution 
-    std::vector<double>* GetSignal() {return &signal_;};
-    /// Returns the x values of a custom function.   
-    std::vector<double>* GetSignalX() {return &signalA_;};
+    std::vector<double>* GetSignal();
+
+    /// Returns the x values of a custom function.
+    std::vector<double>* GetSignalX();
     
     /// Generate a signal 
     void GenerateSignal(); 
     
     /// Set the amplitude of the generated signal 
-    void SetAmplitude(const double &a) {amp_ = a;};  
+    void SetAmplitude(const double &a);
    
     /// Set the baseline value for the generated signal 
-    void SetBaseline(const double &a) {baseline_ = a;};
+    void SetBaseline(const double &a);
 
     /// Set the decay constant for an exponential decay. (not implemented) 
-    void SetDecayConstant(const double &a) {decay_ = a;}; 
+    void SetDecayConstant(const double &a);
     
     /// Set the delay for the signal 
-    void SetDelay(const double &a) {mu_ = a;}; 
+    void SetDelay(const double &a);
     
     /// Set the file name to read the custom function. 
-    /// The file should contain a series of xy pairs 
-    void SetFileName(const std::string &a) {fileName_ = a;};
+    /// The file should contain a series of xy pairs
+    void SetFileName(const std::string &a);
     
     /// Set the flattop for the trapezoidal signal (not implemented)
-    void SetFlattop(const double &a) {flattop_ = a;};
+    void SetFlattop(const double &a);
 
     /// Set the sigma using FWHM for a gaussian signal 
-    void SetFwhm(const double &fwhm) {SetSigma(fwhm/(2*sqrt(2*log(2))));};
+    void SetFwhm(const double &fwhm);
 
     /// Set to true to give the signal some white noise
-    void SetNoise(const bool &a) {hasNoise_ = a;} 
+    void SetNoise(const bool &a);
     
     /// Set the amplitude of the noise
-    void SetNoiseAmplitude(const double &a) {noiseAmp_ = a;}; 
+    void SetNoiseAmplitude(const double &a);
     
     /// Set the periodicity of the signal (if periodic).
-    void SetPeriod(const double &a) {period_ = a;}; 
+    void SetPeriod(const double &a);
     
     /// Set the risetime for a trapezoidal signal (not implemented)
-    void SetRisetime(const double &a) {risetime_ = a;};
+    void SetRisetime(const double &a);
     
     /// Set the sigma for the gaussian signal
-    void SetSigma(const double &a) {sigma_ = a;}; 
-    
+    void SetSigma(const double &a);
+
     /// Set the length of the generated signal
-    void SetSignalLength(const unsigned int &a) {length_ = a;} 
+    void SetSignalLength(const unsigned int &a);
     
     /// Set the resolution for the generated signal
-    void SetSignalResolution(const double &a) {res_ = a;}
+    void SetSignalResolution(const double &a);
     
     /// Set the type of signal to generate 
     /// Available types: sine, cosine, gaussian, sawtooth, square, triangle, custom, composite.
-    void SetSignalType (const std::string &a) {type_ = a;}
+    void SetSignalType (const std::string &a);
     
     /// Set the types of signals to generate for a composite signal
-    void SetSignalType (const std::string &a, const std::string &b)
-    {type_ = a; typeA_ = b;};
+    void SetSignalType (const std::string &a, const std::string &b);
 private:
     bool hasNoise_;
-    double amp_, baseline_, decay_, mu_, sigma_, period_, 
-        risetime_, flattop_, res_;
+    double amp_, baseline_, decay_, mu_, sigma_, period_, risetime_, flattop_, res_;
     double noiseAmp_;
     std::string type_, typeA_, fileName_;
     std::vector<double> signal_, signalA_;
@@ -142,8 +137,7 @@ private:
     
     void CompositeFunction();
     void CustomFunction();
-    void FillVector(std::vector<double> &vec, 
-                    const std::string &type);
+    void FillVector(std::vector<double> &vec, const std::string &type);
 }; //class SignalGenerator
 
 #endif

@@ -10,6 +10,11 @@
 #include <iostream>
 #include <limits>
 
+#include <cstdlib>
+#include <cmath>
+
+#include "time.h"
+
 SignalGenerator::SignalGenerator() {
     srand(time(NULL));
 }
@@ -31,6 +36,35 @@ void SignalGenerator::GenerateSignal() {
         for(unsigned int i = 0; i < signal_.size(); i++) 
             signal_[i] += noiseAmp_*Noise();
 }
+
+double SignalGenerator::GetAmplitude() { return amp_; }
+
+double SignalGenerator::GetDecayConstant() {return decay_;}
+
+double SignalGenerator::GetDelay() {return mu_;}
+
+std::string SignalGenerator::GetFileName() {return fileName_;}
+
+double SignalGenerator::GetFlattop() {return flattop_;}
+
+double SignalGenerator::GetNoise() {return hasNoise_;}
+
+double SignalGenerator::GetNoiseAmplitude() {return noiseAmp_;}
+
+double SignalGenerator::GetPeriod() {return period_;}
+
+double SignalGenerator::GetRisetime() {return risetime_;}
+
+double SignalGenerator::GetSigma() {return sigma_;}
+
+std::vector<double>* SignalGenerator::GetSignal() {return &signal_;}
+
+std::vector<double>* SignalGenerator::GetSignalX() {return &signalA_;}
+
+unsigned int SignalGenerator::GetSignalLength() {return length_;}
+
+double SignalGenerator::GetSignalResolution() {return res_;}
+
 
 void SignalGenerator::CompositeFunction() {
     for(unsigned int i = 0; i < signal_.size(); i++) {
@@ -103,6 +137,38 @@ double SignalGenerator::GetSignalValue(const double &x) {
     else 
         return(std::numeric_limits<double>::quiet_NaN());
 }
+
+void SignalGenerator::SetAmplitude(const double &a) {amp_ = a;}
+
+void SignalGenerator::SetBaseline(const double &a) {baseline_ = a;}
+
+void SignalGenerator::SetDecayConstant(const double &a) {decay_ = a;}
+
+void SignalGenerator::SetDelay(const double &a) {mu_ = a;}
+
+void SignalGenerator::SetFileName(const std::string &a) {fileName_ = a;}
+
+void SignalGenerator::SetFlattop(const double &a) {flattop_ = a;}
+
+void SignalGenerator::SetFwhm(const double &fwhm) {SetSigma(fwhm/(2*sqrt(2*log(2))));}
+
+void SignalGenerator::SetNoise(const bool &a) {hasNoise_ = a;}
+
+void SignalGenerator::SetNoiseAmplitude(const double &a) {noiseAmp_ = a;}
+
+void SignalGenerator::SetPeriod(const double &a) {period_ = a;}
+
+void SignalGenerator::SetRisetime(const double &a) {risetime_ = a;}
+
+void SignalGenerator::SetSigma(const double &a) {sigma_ = a;}
+
+void SignalGenerator::SetSignalLength(const unsigned int &a) {length_ = a;}
+
+void SignalGenerator::SetSignalResolution(const double &a) {res_ = a;}
+
+void SignalGenerator::SetSignalType (const std::string &a) {type_ = a;}
+
+void SignalGenerator::SetSignalType (const std::string &a, const std::string &b) {type_ = a; typeA_ = b;}
 
 double SignalGenerator::Gaussian(const double &t) {
     double coeff = amp_/(sigma_*sqrt(2*M_PI));
