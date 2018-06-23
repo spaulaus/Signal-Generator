@@ -4,17 +4,13 @@
 /// @date Jun 23, 2018
 /// @copyright Copyright (c) 2012 - 2018 S. V. Paulauskas.
 /// @copyright All rights reserved. Released under the Creative Commons Attribution-ShareAlike 4.0 International License
+#include "SignalGenerator.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <limits>
 
-#include "SignalGenerator.hpp"
-
-using namespace std;
-
-//********** GenerateSignal **********
-void SignalGenerator::GenerateSignal(void) {
+void SignalGenerator::GenerateSignal() {
     if(type_ == "custom") {
         CustomFunction();
     }else if(typeA_ != "") {
@@ -30,24 +26,20 @@ void SignalGenerator::GenerateSignal(void) {
             signal_[i] += noiseAmp_*Noise();
 }
 
-
-//********** CompositeFunction **********
-void SignalGenerator::CompositeFunction(void) {
+void SignalGenerator::CompositeFunction() {
     for(unsigned int i = 0; i < signal_.size(); i++) {
         signal_[i] += signalA_[i];
     }
 }
 
-
-//********** CustomFunction **********
-void SignalGenerator::CustomFunction(void) {
+void SignalGenerator::CustomFunction() {
     double junk0, junk1, junk2;
     if(fileName_ == "") {
-        cerr << endl << "A file name must be specified to use a custom function."
-             << endl << "This is a fatal error. Exiting." << endl;
+        std::cerr << std::endl << "A file name must be specified to use a custom function."
+             << std::endl << "This is a fatal error. Exiting." << std::endl;
         exit(2);
     }else {
-        ifstream readData(fileName_.c_str());
+        std::ifstream readData(fileName_.c_str());
         if(readData.is_open()) {
             while(readData.good()) {
                 readData >> junk0 >> junk1 >> junk2;
@@ -56,16 +48,13 @@ void SignalGenerator::CustomFunction(void) {
             }
             readData.close();
         } else {
-            cerr << "Unable to open the requested file. Exiting..." << endl;
+            std::cerr << "Unable to open the requested file. Exiting..." << std::endl;
             exit(2);
         }
     }
 }
 
-
-//********** Fill Vector **********
-void SignalGenerator::FillVector(vector<double> &vec, 
-				 const string &type) {
+void SignalGenerator::FillVector(std::vector<double> &vec, const std::string &type) {
     if(type == "cosine")
         mu_ += M_PI*0.5;
     
@@ -88,8 +77,6 @@ void SignalGenerator::FillVector(vector<double> &vec,
     }
 }
    
-
-//********** GetSignalVal **********
 double SignalGenerator::GetSignalValue(const double &x) {
     if(type_ == "sine")
         return(SineWave(x));
@@ -108,19 +95,15 @@ double SignalGenerator::GetSignalValue(const double &x) {
     else if (type_ == "pixie")
         return(PixieFunc(x));
     else 
-        return(numeric_limits<double>::quiet_NaN());
+        return(std::numeric_limits<double>::quiet_NaN());
 }
 
-
-//********** Gaussian **********
 double SignalGenerator::Gaussian(const double &t) {
     double coeff = amp_/(sigma_*sqrt(2*M_PI));
     double exponent = -pow((t-mu_)/sigma_,2)*0.5;
     return( coeff * exp(exponent) );
 }
 
-
-//********** PixieResponseFunction **********
 double SignalGenerator::PixieFunc(const double &t) {
     if(t < mu_)
         return(baseline_);
@@ -129,14 +112,10 @@ double SignalGenerator::PixieFunc(const double &t) {
                exp(-(t-mu_)/decay_));
 }
 
-
-//********** Noise **********
-double SignalGenerator::Noise(void) {
+double SignalGenerator::Noise() {
     return ( (rand() / double(RAND_MAX))*2 -1 );
 }
 
-
-//********** NonStationarySine **********
 double SignalGenerator::NonStationarySine(const double &t) {
     double t1 = sigma_/6., t2 = 4.*sigma_/6.;       
     if (t >= 0 && t <= t1) 
@@ -150,26 +129,18 @@ double SignalGenerator::NonStationarySine(const double &t) {
         return(0.0);
 }
 
-
-//********** SawtoothWave **********
 double SignalGenerator::SawtoothWave(const double &t) {
     return (amp_ * (t/period_ - floor(t/period_ + 0.5)));
 }
 
-
-//********** Sign **********
 double SignalGenerator::Sign(const double &t) {
     return ( (t<0) ? -1 : (t>0) );
 }
 
-
-//********** SineWave **********
 double SignalGenerator::SineWave(const double &t) {
     return( amp_ * sin(period_*t + mu_) );
 }
 
-
-//********** SquareWave **********
 double SignalGenerator::SquareWave(const double &t) {
     return ( amp_ * Sign(SineWave(t)) );
 }
