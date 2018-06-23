@@ -1,26 +1,9 @@
-/***************************************************************************
-  *  Copyright S. V. Paulauskas 2012-2014                                  *
-  *                                                                        *
-  *  This program is free software: you can redistribute it and/or modify  *
-  *  it under the terms of the GNU General Public License as published by  *
-  *  the Free Software Foundation, version 3.0 License.                    *
-  *                                                                        *
-  *  This program is distributed in the hope that it will be useful,       *
-  *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-  *  GNU General Public License for more details.                          *
-  *                                                                        *
-  *  You should have received a copy of the GNU General Public License     *
-  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
-  **************************************************************************
-*/
-
-/** \file SignalGenerator.hpp
- * Class for generating different kinds of signals;
- *   also allows for one to add random noise.
- * \author S.V. Paulauskas
- * \date 15 March 2012
- */
+/// @file SignalGenerator.hpp
+/// @brief Class for generating different kinds of signals, with random noise
+/// @author S. V. Paulauskas
+/// @date March 15, 2012
+/// @copyright Copyright (c) 2012 - 2018 S. V. Paulauskas.
+/// @copyright All rights reserved. Released under the Creative Commons Attribution-ShareAlike 4.0 International License
 #include <string>
 #include <vector>
 
