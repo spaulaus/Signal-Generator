@@ -75,9 +75,8 @@ void SignalGenerator::CompositeFunction() {
 void SignalGenerator::CustomFunction() {
     double junk0, junk1, junk2;
     if(fileName_ == "") {
-        std::cerr << std::endl << "A file name must be specified to use a custom function."
-             << std::endl << "This is a fatal error. Exiting." << std::endl;
-        exit(2);
+        throw std::invalid_argument("SignalGenerator::CustomFunction - A file name was not provided when calling this"
+                                    " method. You must provide a valid file name.");
     }else {
         std::ifstream readData(fileName_.c_str());
         if(readData.is_open()) {
@@ -87,10 +86,9 @@ void SignalGenerator::CustomFunction() {
                 signal_.push_back(junk1);
             }
             readData.close();
-        } else {
-            std::cerr << "Unable to open the requested file. Exiting..." << std::endl;
-            exit(2);
-        }
+        } else
+            throw std::invalid_argument("SignalGenerator::CustomFunction - Unable to open the requested file. Please "
+                                        "check the file name and try again.");
     }
 }
 
