@@ -1,7 +1,7 @@
 /// @file SignalGenerator.cpp
 /// @brief Implementation of methods used to generate signals to study
 /// @author S. V. Paulauskas
-/// @date Jun 23, 2018
+/// @date March 15, 2012
 /// @copyright Copyright (c) 2012 - 2018 S. V. Paulauskas.
 /// @copyright All rights reserved. Released under the Creative Commons Attribution-ShareAlike 4.0 International License
 #include "SignalGenerator.hpp"
