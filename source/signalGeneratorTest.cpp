@@ -13,20 +13,28 @@
 
 using namespace std;
 
-double res = 0.01, length = 10., period = 1., amp = 5.;
-
-TEST_FIXTURE(SignalGenerator, TestGaussian) {
-    vector<double> expected = {3.726653172078671e-06, 4.006529739295107e-05, 0.00033546262790251185, 
+TEST_FIXTURE(SignalGenerator, TestSignalGeneration) {
+    vector<double> gaussian = {3.726653172078671e-06, 4.006529739295107e-05, 0.00033546262790251185,
                                0.002187491118182885, 0.011108996538242306, 0.04393693362340742, 0.1353352832366127, 
                                0.32465246735834974, 0.6065306597126334, 0.8824969025845955, 1.0, 0.8824969025845955,
                                0.6065306597126334, 0.32465246735834974, 0.1353352832366127, 0.04393693362340742,
                                0.011108996538242306, 0.002187491118182885, 0.00033546262790251185, 
                                4.006529739295107e-05, 3.726653172078671e-06};
 
-    CHECK_ARRAY_CLOSE(expected, GenerateGaussian(2.0, 5.01, 20, 1.0), expected.size(), 0.1);
+    CHECK_ARRAY_CLOSE(gaussian, GenerateGaussian(2.0, 5.01, 20, 1.0), expected.size(), 0.1);
+
+    vector<double> sawtooth = {
+
+    };
+
+    vector<double> triangle = {
+
+    };
 }
 
 TEST_FIXTURE(SignalGenerator, TestCompoundSignal) {
+    double res = 0.01, length = 10., period = 1., amp = 5.;
+
     //Set a compound signal
     SignalGenerator compound;
     compound.SetSignalLength(length);
@@ -45,14 +53,14 @@ TEST_FIXTURE(SignalGenerator, TestCompoundSignal) {
 }
 
 TEST_FIXTURE(SignalGenerator, TestCustomFunction) {
-    //Set a custom signal
-    SignalGenerator custom;
-    custom.SetSignalType("custom");
-    custom.SetFileName("example-input.dat");
-
-    //Generate and Get Signal
-    custom.GenerateSignal();
-    vector<double> *customSignal = GetSignal();
+//    //Set a custom signal
+//    SignalGenerator custom;
+//    custom.SetSignalType("custom");
+//    custom.SetFileName("example-input.dat");
+//
+//    //Generate and Get Signal
+//    custom.GenerateSignal();
+//    vector<double> *customSignal = GetSignal();
 }
 
 int main(int argv, char *argc[]) {
