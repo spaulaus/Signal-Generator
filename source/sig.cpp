@@ -15,21 +15,15 @@ using namespace std;
 
 double res = 0.01, length = 10., period = 1., amp = 5.;
 
-TEST (TestSignalGeneration) {
-    SignalGenerator standard;
-    standard.SetSignalLength(length);
-    standard.SetSignalResolution(res);
-    standard.SetPeriod(period);
-    standard.SetAmplitude(amp);
-    standard.SetSignalType("triangle");
+TEST_FIXTURE(SignalGenerator, TestGaussian) {
+    vector<double> expected = {3.726653172078671e-06, 4.006529739295107e-05, 0.00033546262790251185, 
+                               0.002187491118182885, 0.011108996538242306, 0.04393693362340742, 0.1353352832366127, 
+                               0.32465246735834974, 0.6065306597126334, 0.8824969025845955, 1.0, 0.8824969025845955,
+                               0.6065306597126334, 0.32465246735834974, 0.1353352832366127, 0.04393693362340742,
+                               0.011108996538242306, 0.002187491118182885, 0.00033546262790251185, 
+                               4.006529739295107e-05, 3.726653172078671e-06};
 
-    //Set Noise Information
-    standard.SetNoise(false);
-    standard.SetNoiseAmplitude(0.5);
-
-    //Generate and Get Signal
-    standard.GenerateSignal();
-    vector<double> *stdSignal = standard.GetSignal();
+    CHECK_ARRAY_CLOSE(expected, GenerateGaussian(2.0, 5.01, 20, 1.0), expected.size(), 0.1);
 }
 
 TEST_FIXTURE(SignalGenerator, TestCompoundSignal) {

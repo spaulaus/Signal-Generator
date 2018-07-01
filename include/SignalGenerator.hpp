@@ -16,6 +16,9 @@ public:
     /// Default Destructor 
     ~SignalGenerator();
 
+    std::vector<double> GenerateGaussian(const double &sigma, const double &area, const double &length,
+                                         const double &resolution);
+
     /// Get the amplitude of the generated signal 
     double GetAmplitude();
    
@@ -125,7 +128,6 @@ private:
     std::vector<double> signal_, signalA_;
     unsigned int length_;
     
-    double Gaussian(const double &t);
     double PixieFunc(const double &t);
     double Noise();
     double NonStationarySine(const double &t);

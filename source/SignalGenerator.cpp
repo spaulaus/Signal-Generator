@@ -21,6 +21,19 @@ SignalGenerator::SignalGenerator() {
 
 SignalGenerator::~SignalGenerator() = default;
 
+std::vector<double> SignalGenerator::GenerateGaussian(const double &sigma, const double &area,
+                                                      const double &length, const double &resolution) {
+    std::vector<double> signal;
+    double coeff = area / (sigma * sqrt(2 * M_PI));
+    double exponent = 0;
+    double mean = (length / resolution) * 0.5;
+    for (double i = 0; i <= length; i += resolution) {
+        exponent = -pow((i - mean) / sigma, 2) * 0.5;
+        signal.emplace_back(coeff * exp(exponent));
+    }
+    return signal;
+}
+
 void SignalGenerator::GenerateSignal() {
     if (type_ == "custom") {
         CustomFunction();
@@ -101,8 +114,6 @@ void SignalGenerator::FillVector(std::vector<double> &vec, const std::string &ty
             vec.push_back(SineWave(i));
         } else if (type == "cosine") {
             vec.push_back(SineWave(i));
-        } else if (type == "gaussian") {
-            vec.push_back(Gaussian(i));
         } else if (type == "nonstationarysine") {
             vec.push_back(NonStationarySine(i));
         } else if (type == "square") {
@@ -120,8 +131,6 @@ double SignalGenerator::GetSignalValue(const double &x) {
         return (SineWave(x));
     else if (type_ == "cosine")
         return (SineWave(x + M_PI * 0.5));
-    else if (type_ == "gaussian")
-        return (Gaussian(x));
     else if (type_ == "nonstationarysine")
         return (NonStationarySine(x));
     else if (type_ == "square")
@@ -169,12 +178,6 @@ void SignalGenerator::SetSignalType(const std::string &a) { type_ = a; }
 void SignalGenerator::SetSignalType(const std::string &a, const std::string &b) {
     type_ = a;
     typeA_ = b;
-}
-
-double SignalGenerator::Gaussian(const double &t) {
-    double coeff = amp_ / (sigma_ * sqrt(2 * M_PI));
-    double exponent = -pow((t - mu_) / sigma_, 2) * 0.5;
-    return (coeff * exp(exponent));
 }
 
 double SignalGenerator::PixieFunc(const double &t) {
